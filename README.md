@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/rcmdnk/travis-test.svg?branch=master)](https://travis-ci.org/rcmdnk/travis-test)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.txt)
+
 node-json-logger
 ----
 write logs as JSON to STDOUT
@@ -48,10 +51,10 @@ const logger = new Logger({
 
 Output:
 ```json
-{"level":"info","message":"info.","source":"You can inject some fields."}
-{"level":"warn","message":"warn.","source":"You can inject some fields."}
-{"level":"error","message":"error.","source":"You can inject some fields."}
-{"level":"fatal","message":"fatal.","source":"You can inject some fields."}
+{"level":"info","message":"info.","source":"You can inject some fields statically."}
+{"level":"warn","message":"warn.","source":"You can inject some fields statically."}
+{"level":"error","message":"error.","source":"You can inject some fields statically."}
+{"level":"fatal","message":"fatal.","source":"You can inject some fields statically."}
 ```
 
 # API
