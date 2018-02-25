@@ -9,7 +9,7 @@ write logs as JSON to STDOUT
 # Usage
 Install package:
 ```sh
-npm install -s hidori/node-json-logger
+npm install -s node-json-logger
 ```
 
 Import and use:
