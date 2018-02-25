@@ -4,7 +4,10 @@
   "description": "write logs as JSON to STDOUT",
   "main": "index.js",
   "scripts": {
-    "test": "ava --verbose"
+    "test": "ava --verbose",
+    "preversion": "npm test",
+    "version": "git add --all",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
