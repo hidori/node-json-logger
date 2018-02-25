@@ -29,8 +29,8 @@ test('Logger output a log in the format prescribed.', t => {
         logger[l](`${l}.`);
         t.is(console.last(), `{"level":"${l}","message":"${l}."}`);
 
-        logger[l](`${l}.`, { data: `${l}..` });
-        t.is(console.last(), `{"level":"${l}","message":"${l}.","details":{"data":"${l}.."}}`);
+        logger[l](`${l}.`, { data: `${l}.` });
+        t.is(console.last(), `{"level":"${l}","message":"${l}.","details":{"data":"${l}."}}`);
     });
 });
 
@@ -47,17 +47,17 @@ test('Logger can output a log contains addendums.', t => {
     let logger = new Logger({
         level: 'trace',
         addendum: {
-            source: 'You can inject some fields.',
+            source: 'source.',
         },
     });
     logger.log = console.log;
 
     level.forEach(l => {
         logger[l](`${l}.`);
-        t.is(console.last(), `{"level":"${l}","message":"${l}.","source":"${logger.options.addendum.source}"}`);
+        t.is(console.last(), `{"level":"${l}","source":"${logger.options.addendum.source}","message":"${l}."}`);
 
         logger[l](`${l}.`, { data: `${l}..` });
-        t.is(console.last(), `{"level":"${l}","message":"${l}.","details":{"data":"${l}.."},"source":"${logger.options.addendum.source}"}`);
+        t.is(console.last(), `{"level":"${l}","source":"${logger.options.addendum.source}","message":"${l}.","details":{"data":"${l}.."}}`);
     });
 });
 

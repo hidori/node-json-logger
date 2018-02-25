@@ -38,9 +38,9 @@ class Logger {
         delete addendum.level;
         delete addendum.message;
         delete addendum.details;
-        const data = Object.assign(details
-            ? { level: level, message: message, details: details }
-            : { level: level, message: message },
+        const data = Object.assign(Object.assign({ level : level }, addendum), details
+            ? { message: message, details: details }
+            : { message: message },
             addendum);
         this.log(JSON.stringify(data));
     }
