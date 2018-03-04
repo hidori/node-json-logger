@@ -1,21 +1,20 @@
-[![Build Status](https://travis-ci.org/rcmdnk/travis-test.svg?branch=master)](https://travis-ci.org/rcmdnk/travis-test)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Build Status](https://travis-ci.org/rcmdnk/travis-test.svg?branch=master)](https://travis-ci.org/rcmdnk/travis-test)
 [![Maintainability](https://api.codeclimate.com/v1/badges/1dd1bfe212c8d70c9b8b/maintainability)](https://codeclimate.com/github/hidori/node-json-logger/maintainability)
 
 node-json-logger
 ----
-write logs as JSON to STDOUT
+output logs as JSON to STDOUT
 
-# Usage
-Install package:
+# Install
 ```sh
-npm install node-json-logger
+npm install -s node-json-logger
 ```
-
-Import and use:
+# Usage
 ```js
-const Logger = require('./index');
+const Logger = require('node-json-logger');
 const logger = new Logger();
+
 logger.info('info.');
 logger.info('info.', { data: 'data.' });
 ```
@@ -25,42 +24,63 @@ Output:
 {"level":"info","message":"info.","details":{"data":"data."}}
 ```
 
-# Configuration
-Output levels:
-```js
-const Logger = require('./index');
-const logger = new Logger({ level: 'info'});
+# API
+## xxx
+Output log. xxx is one of the [Levels](#Levels)
 ```
+logger.xxx(message, details)
+```
+Arguments:
+* message: Specify log message as string.
+* details: Specify log details as object (optional).
 
-Note:
-* 'trace' will be output `trace`,`debug`,`info`,`warn`,`error`,`fatal` logs.
-* 'debug' will be output `debug`,`info`,`warn`,`error`,`fatal` logs.
-* 'info' will be output `info`,`warn`,`error`,`fatal` logs.
-* 'warn' will be output `warn`,`error`,`fatal` logs.
-* 'error' will be output `error`,`fatal` logs.
-* 'fatal' will be output `fatal` logs.
-
-Addendum fields:
+# Configuration
+## level
+Specify log output level (optional, default is `debug`).
 ```js
-const Logger = require('./index');
+const Logger = require('node-json-logger');
+const logger = new Logger({ level: 'error'});
+
+logger.trace('trace.');
+logger.debug('debug.');
+logger.info('info.');
+logger.warn('warn.');
+logger.error('error.');
+logger.fatal('fatal.');
+```
+Output:
+```json
+{"level":"error","message":"error."}
+{"level":"fatal","message":"fatal."}
+```
+Level and output:
+| level                | trace | debug | info | warn | error | fatal |
+|:---------------------|:------|:------|:-----|:-----|:------|:------|
+| `{ level: 'trace' }` | O     | O     | O    | O    | O     | O     |
+| `{ level: 'debug' }` | -     | O     | O    | O    | O     | O     |
+| `{ level: 'info' }`  | -     | -     | O    | O    | O     | O     |
+| `{ level: 'warn' }`  | -     | -     | -    | O    | O     | O     |
+| `{ level: 'error' }` | -     | -     | -    | -    | O     | O     |
+| `{ level: 'fatal' }` | -     | -     | -    | -    | -     | O     |
+
+## addendum
+Spcify staic addeundum field. this is optional.
+```js
+const Logger = require('node-json-logger');
 const logger = new Logger({
     addendum: {
         source: 'source.',
     },
 });
+
 logger.info('info.');
 ```
-
 Output:
 ```json
 {"level":"info","source":"source.","message":"info."}
 ```
 
-# API
-xxx could be any of [levels](#levels).
-* `logger.xxx(message)` or `logger.xxx(message, details)`
-
-# <a href="#levels"></a>Levels
+# <a href="#"></a>Levels
 * trace
 * debug
 * info
@@ -71,4 +91,4 @@ xxx could be any of [levels](#levels).
 # License
 MIT
 
-Copyright &copy;Hiroaki SHIBUKI a.k.a. hidori
+Copyright &copy;2018 Hiroaki SHIBUKI a.k.a. [hidori](https://github.com/hidori)
