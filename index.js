@@ -14,6 +14,7 @@ class Logger {
         this.options = options || {};
         this.options.level = (this.options.level || 'debug').toLowerCase();
         this.options.addendum = this.options.addendum || {};
+        this.options.log = this.options.log || console.log;
         const level = (this.options.level in Level) ? this.options.level : 'debug';
         this.trace = this.debug = this.info = this.warn = this.error = this.fatal = () => { };
         switch (level) {
@@ -30,7 +31,7 @@ class Logger {
             case 'fatal':
                 this.fatal = (message, details) => this.output('fatal', message, details);
         }
-        this.log = message => console.log(message);
+        this.log = message => this.options.log(message);
     }
 
     output(level, message, details) {

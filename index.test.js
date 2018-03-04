@@ -12,7 +12,7 @@ const Console = class {
     }
 }
 
-test('Logger output a log in the format prescribed.', t => {
+test('Logger output a log in the format designed.', t => {
     const level = [
         'trace',
         'debug',
@@ -61,7 +61,7 @@ test('Logger can output a log contains addendums.', t => {
     });
 });
 
-test('Logger output a log on the log level that has been configured.', t => {
+test('Logger output a log on the log level as configured.', t => {
     const config = [
         { options: {}, expected: [true, false, false, false, false, false] },
         { options: { level: 'trace' }, expected: [false, false, false, false, false, false] },
