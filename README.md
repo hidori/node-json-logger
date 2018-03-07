@@ -1,6 +1,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://travis-ci.org/rcmdnk/travis-test.svg?branch=master)](https://travis-ci.org/rcmdnk/travis-test)
 [![Maintainability](https://api.codeclimate.com/v1/badges/1dd1bfe212c8d70c9b8b/maintainability)](https://codeclimate.com/github/hidori/node-json-logger/maintainability)
+[![Build Status](https://travis-ci.org/rcmdnk/travis-test.svg?branch=master)](https://travis-ci.org/rcmdnk/travis-test)
+[![Coverage Status](https://coveralls.io/repos/github/hidori/node-json-logger/badge.svg?branch=feature%2Fadd-coveredge)](https://coveralls.io/github/hidori/node-json-logger?branch=feature%2Fadd-coveredge)
 
 node-json-logger
 ----
@@ -8,7 +9,7 @@ output logs as JSON to STDOUT
 
 # Install
 ```sh
-npm install -s node-json-logger
+npm i node-json-logger
 ```
 # Usage
 ```js
@@ -25,18 +26,19 @@ Output:
 ```
 
 # API
-## xxx
-Output log. xxx is one of the [Levels](#Levels)
-```
+```js
 logger.xxx(message, details)
 ```
+Note:
+* xxx is one of the [Levels](#Levels)
+
 Arguments:
-* message: Specify log message as string.
-* details: Specify log details as object (optional).
+* message: Specify a message as string.
+* details: Specify details as object. (optional)
 
 # Configuration
 ## level
-Specify log output level (optional, default is `debug`).
+Specify output level. (optional, default is `debug`)
 ```js
 const Logger = require('node-json-logger');
 const logger = new Logger({ level: 'error'});
@@ -64,7 +66,7 @@ Level and output:
 | `{ level: 'fatal' }` | -     | -     | -    | -    | -     | O     |
 
 ## addendum
-Spcify staic addeundum field. this is optional.
+Spcify addeundum fields. (optional)
 ```js
 const Logger = require('node-json-logger');
 const logger = new Logger({
@@ -80,7 +82,7 @@ Output:
 {"level":"info","source":"source.","message":"info."}
 ```
 
-# <a href="#"></a>Levels
+# <a href="#Levels"></a>Levels
 * trace
 * debug
 * info
