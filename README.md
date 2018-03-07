@@ -56,6 +56,7 @@ Output:
 {"level":"fatal","message":"fatal."}
 ```
 Level and output:
+
 | level                | trace | debug | info | warn | error | fatal |
 |:---------------------|:------|:------|:-----|:-----|:------|:------|
 | `{ level: 'trace' }` | O     | O     | O    | O    | O     | O     |
