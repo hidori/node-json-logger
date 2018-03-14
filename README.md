@@ -35,14 +35,13 @@ Output:
 
 # API
 ```js
-logger.xxx(message, details)
+logger.xxx(message)
 ```
 Note:
 * xxx is one of the [Levels](#Levels)
 
 Arguments:
-* message: Specify a message as string (Optional).
-* details: Specify details as object (optional).
+* message: Specify a message as string or object.
 
 # Configuration
 ## level
