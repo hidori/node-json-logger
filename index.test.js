@@ -1,9 +1,9 @@
 'use strict';
 
 const test = require('ava');
-
 const Logger = require('./index');
-const Console = class {
+
+class Console {
     constructor() {
         this.lines = [];
         this.log = message => this.lines.push(message);
@@ -21,20 +21,22 @@ test('Logger output a log in the format designed.', t => {
         'error',
         'fatal',
     ];
-    let console = new Console();
-    let logger = new Logger({ level: 'trace' });
-    logger.log = console.log;
+    const console = new Console();
+    const logger = new Logger({ level: 'trace' });
+    const timestamp = "2001-03-14T01:00:00.000Z";
+    logger.getTimestamp = () => timestamp;
+    logger.writeLog = console.log;
 
     level.forEach(l => {
         logger[l](`${l}.`);
-        t.is(console.last(), `{"level":"${l}","message":"${l}."}`);
+        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","message":"${l}."}`);
 
-        logger[l](`${l}.`, { data: `${l}.` });
-        t.is(console.last(), `{"level":"${l}","message":"${l}.","details":{"data":"${l}."}}`);
+        logger[l](`${l}.`, { data1: `${l}#1`, data2: `${l}#2` });
+        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","message":"${l}.","data1":"${l}#1","data2":"${l}#2"}`);
     });
 });
 
-test('Logger can output a log contains addendums.', t => {
+test('Logger can output a log contains source.', t => {
     const level = [
         'trace',
         'debug',
@@ -43,26 +45,27 @@ test('Logger can output a log contains addendums.', t => {
         'error',
         'fatal',
     ];
-    let console = new Console();
-    let logger = new Logger({
+    const console = new Console();
+    const logger = new Logger({
         level: 'trace',
-        addendum: {
-            source: 'source.',
-        },
+        source: 'source.',
     });
-    logger.log = console.log;
+    const timestamp = "2001-03-14T01:00:00.000Z";
+    logger.getTimestamp = () => timestamp;
+    logger.writeLog = console.log;
 
     level.forEach(l => {
         logger[l](`${l}.`);
-        t.is(console.last(), `{"level":"${l}","source":"${logger.options.addendum.source}","message":"${l}."}`);
+        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","source":"${logger.options.source}","message":"${l}."}`);
 
-        logger[l](`${l}.`, { data: `${l}..` });
-        t.is(console.last(), `{"level":"${l}","source":"${logger.options.addendum.source}","message":"${l}.","details":{"data":"${l}.."}}`);
+        logger[l](`${l}.`, { data1: `${l}#1`, data2: `${l}#2` });
+        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","source":"${logger.options.source}","message":"${l}.","data1":"${l}#1","data2":"${l}#2"}`);
     });
 });
 
 test('Logger output a log on the log level as configured.', t => {
     const config = [
+        { options: undefined, expected: [true, false, false, false, false, false] },
         { options: {}, expected: [true, false, false, false, false, false] },
         { options: { level: 'trace' }, expected: [false, false, false, false, false, false] },
         { options: { level: 'debug' }, expected: [true, false, false, false, false, false] },
@@ -73,10 +76,12 @@ test('Logger output a log on the log level as configured.', t => {
         { options: { level: 'unknown*level' }, expected: [true, false, false, false, false, false] },
     ];
     config.forEach(c => {
-        let console = new Console();
-        let logger = new Logger(c.options);
-        logger.log = console.log;
-
+        const console = new Console();
+        const logger = new Logger(c.options);
+        const timestamp = "2001-03-14T01:00:00.000Z";
+        logger.getTimestamp = () => timestamp;
+        logger.writeLog = console.log;
+    
         logger.trace('trace.');
         t.true((console.last() === null) === c.expected[0]);
 
@@ -96,4 +101,28 @@ test('Logger output a log on the log level as configured.', t => {
         t.true((console.last() === null) === c.expected[5]);
     });
     t.pass();
+});
+
+test('Timestamp can be disiable with config.', t => {
+    const level = [
+        'trace',
+        'debug',
+        'info',
+        'warn',
+        'error',
+        'fatal',
+    ];
+    const console = new Console();
+    const logger = new Logger({ level: 'trace', timestamp: false });
+    const timestamp = "2001-03-14T01:00:00.000Z";
+    logger.getTimestamp = () => timestamp;
+    logger.writeLog = console.log;
+
+    level.forEach(l => {
+        logger[l](`${l}.`);
+        t.is(console.last(), `{"level":"${l}","message":"${l}."}`);
+
+        logger[l](`${l}.`, { data1: `${l}#1`, data2: `${l}#2` });
+        t.is(console.last(), `{"level":"${l}","message":"${l}.","data1":"${l}#1","data2":"${l}#2"}`);
+    });
 });
