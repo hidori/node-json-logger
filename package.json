@@ -2,6 +2,20 @@
   "name": "node-json-logger",
   "version": "0.0.4",
   "description": "write logs as JSON to STDOUT",
+  "author": "hidori",
+  "license": "MIT",
+  "keywords": [
+    "logger",
+    "json"
+  ],
+  "homepage": "https://github.com/hidori/node-json-logger#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hidori/node-json-logger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hidori/node-json-logger/issues"
+  },
   "main": "index.js",
   "scripts": {
     "test": "nyc ava --verbose",
@@ -9,20 +23,9 @@
     "version": "git add --all",
     "postversion": "git push && git push --tags"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hidori/node-json-logger.git"
+  "dependencies": {
+    "moment": "^2.21.0"
   },
-  "keywords": [
-    "logger",
-    "json"
-  ],
-  "author": "hidori",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hidori/node-json-logger/issues"
-  },
-  "homepage": "https://github.com/hidori/node-json-logger#readme",
   "devDependencies": {
     "ava": "^0.25.0",
     "coveralls": "^3.0.0",

@@ -1,22 +1,22 @@
 'use strict';
 
-const Level = {
-    fatal: 0,
-    error: 1,
-    warn: 2,
-    info: 3,
-    debug: 4,
-    trace: 5,
-};
+const moment = require('moment');
+
+const levels = ['fatal', 'error', 'warn', 'info', 'debug', 'trace'];
 
 class Logger {
     constructor(options) {
-        this.options = options || {};
+        this.options = Object.create(options || {});
+        this.options.timestamp = (this.options.timestamp === undefined) ? true : !!this.options.timestamp;
         this.options.level = (this.options.level || 'debug').toLowerCase();
-        this.options.addendum = this.options.addendum || {};
-        this.options.log = this.options.log || console.log;
-        const level = (this.options.level in Level) ? this.options.level : 'debug';
+        this.options.source = this.options.source || undefined;
+
+        this.getTimestamp = () => moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+        this.formatLog = JSON.stringify;
+        this.writeLog = console.log;
+
         this.trace = this.debug = this.info = this.warn = this.error = this.fatal = () => { };
+        const level = levels.includes(this.options.level) ? this.options.level : 'debug';
         switch (level) {
             case 'trace':
                 this.trace = (message, details) => this.output('trace', message, details);
@@ -31,19 +31,30 @@ class Logger {
             case 'fatal':
                 this.fatal = (message, details) => this.output('fatal', message, details);
         }
-        this.log = message => this.options.log(message);
     }
 
     output(level, message, details) {
-        const addendum = Object.assign({}, this.options.addendum);
-        delete addendum.level;
-        delete addendum.message;
-        delete addendum.details;
-        const data = Object.assign(Object.assign({ level : level }, addendum), details
-            ? { message: message, details: details }
-            : { message: message },
-            addendum);
-        this.log(JSON.stringify(data));
+        const head = {};
+        const tail = Object.assign({}, details || {});
+
+        if (this.options.timestamp) {
+            head.timestamp = this.getTimestamp();
+            delete tail.timestamp;
+        }
+
+        head.level = level;
+        delete tail.level;
+
+        if (this.options.source !== undefined) {
+            head.source = this.options.source;
+            delete tail.source;
+        }
+
+        head.message = message + '';
+        delete tail.message;
+
+        const log = Object.assign(head, tail);
+        this.writeLog(this.formatLog(log));
     }
 }
 

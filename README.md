@@ -17,13 +17,21 @@ const Logger = require('node-json-logger');
 const logger = new Logger();
 
 logger.info('info.');
-logger.info('info.', { data: 'data.' });
+logger.info('info.', { data1: 'data#1', data2: 'data#2' });
 ```
 Output:
 ```json
-{"level":"info","message":"info."}
-{"level":"info","message":"info.","details":{"data":"data."}}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","message":"info."}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","message":"info.","data1":"data#1","data2":"data#2"}}
 ```
+
+# <a href="#Levels"></a>Levels
+* trace
+* debug
+* info
+* warn
+* error
+* fatal
 
 # API
 ```js
@@ -52,8 +60,8 @@ logger.fatal('fatal.');
 ```
 Output:
 ```json
-{"level":"error","message":"error."}
-{"level":"fatal","message":"fatal."}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"error","message":"error."}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"fatal","message":"fatal."}
 ```
 Level and output:
 
@@ -65,31 +73,6 @@ Level and output:
 | `{ level: 'warn' }`  | -     | -     | -    | O    | O     | O     |
 | `{ level: 'error' }` | -     | -     | -    | -    | O     | O     |
 | `{ level: 'fatal' }` | -     | -     | -    | -    | -     | O     |
-
-## addendum
-Spcify addeundum fields. (optional)
-```js
-const Logger = require('node-json-logger');
-const logger = new Logger({
-    addendum: {
-        source: 'source.',
-    },
-});
-
-logger.info('info.');
-```
-Output:
-```json
-{"level":"info","source":"source.","message":"info."}
-```
-
-# <a href="#Levels"></a>Levels
-* trace
-* debug
-* info
-* warn
-* error
-* fatal
 
 # License
 MIT
