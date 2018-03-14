@@ -12,30 +12,36 @@ class Logger {
         this.options.source = this.options.source || undefined;
 
         this.getTimestamp = () => moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
-        this.formatLog = JSON.stringify;
+        this.stringifyLog = JSON.stringify;
         this.writeLog = console.log;
 
         this.trace = this.debug = this.info = this.warn = this.error = this.fatal = () => { };
         const level = levels.includes(this.options.level) ? this.options.level : 'debug';
         switch (level) {
             case 'trace':
-                this.trace = (message, details) => this.output('trace', message, details);
+                this.trace = message => this.output('trace', message);
             case 'debug':
-                this.debug = (message, details) => this.output('debug', message, details);
+                this.debug = message => this.output('debug', message);
             case 'info':
-                this.info = (message, details) => this.output('info', message, details);
+                this.info = message => this.output('info', message);
             case 'warn':
-                this.warn = (message, details) => this.output('warn', message, details);
+                this.warn = message => this.output('warn', message);
             case 'error':
-                this.error = (message, details) => this.output('error', message, details);
+                this.error = message => this.output('error', message);
             case 'fatal':
-                this.fatal = (message, details) => this.output('fatal', message, details);
+                this.fatal = message => this.output('fatal', message);
         }
     }
 
-    output(level, message, details) {
+    output(level, message) {
+        message = message || {};
+
+        if (typeof message === 'string') {
+            message = { message: message };
+        }
+
         const head = {};
-        const tail = Object.assign({}, details || {});
+        const tail = Object.assign({}, message || {});
 
         if (this.options.timestamp) {
             head.timestamp = this.getTimestamp();
@@ -50,11 +56,8 @@ class Logger {
             delete tail.source;
         }
 
-        head.message = message + '';
-        delete tail.message;
-
         const log = Object.assign(head, tail);
-        this.writeLog(this.formatLog(log));
+        this.writeLog(this.stringifyLog(log));
     }
 }
 

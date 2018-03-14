@@ -31,8 +31,8 @@ test('Logger output a log in the format designed.', t => {
         logger[l](`${l}.`);
         t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","message":"${l}."}`);
 
-        logger[l](`${l}.`, { data1: `${l}#1`, data2: `${l}#2` });
-        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","message":"${l}.","data1":"${l}#1","data2":"${l}#2"}`);
+        logger[l]({ data1: `${l}#1`, data2: `${l}#2` });
+        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","data1":"${l}#1","data2":"${l}#2"}`);
     });
 });
 
@@ -58,8 +58,8 @@ test('Logger can output a log contains source.', t => {
         logger[l](`${l}.`);
         t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","source":"${logger.options.source}","message":"${l}."}`);
 
-        logger[l](`${l}.`, { data1: `${l}#1`, data2: `${l}#2` });
-        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","source":"${logger.options.source}","message":"${l}.","data1":"${l}#1","data2":"${l}#2"}`);
+        logger[l]({ data1: `${l}#1`, data2: `${l}#2` });
+        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","source":"${logger.options.source}","data1":"${l}#1","data2":"${l}#2"}`);
     });
 });
 
@@ -122,7 +122,28 @@ test('Timestamp can be disiable with config.', t => {
         logger[l](`${l}.`);
         t.is(console.last(), `{"level":"${l}","message":"${l}."}`);
 
-        logger[l](`${l}.`, { data1: `${l}#1`, data2: `${l}#2` });
-        t.is(console.last(), `{"level":"${l}","message":"${l}.","data1":"${l}#1","data2":"${l}#2"}`);
+        logger[l]({ data1: `${l}#1`, data2: `${l}#2` });
+        t.is(console.last(), `{"level":"${l}","data1":"${l}#1","data2":"${l}#2"}`);
+    });
+});
+
+test('Message is omittable.', t => {
+    const level = [
+        'trace',
+        'debug',
+        'info',
+        'warn',
+        'error',
+        'fatal',
+    ];
+    const console = new Console();
+    const logger = new Logger({ level: 'trace', timestamp: false });
+    const timestamp = "2001-03-14T01:00:00.000Z";
+    logger.getTimestamp = () => timestamp;
+    logger.writeLog = console.log;
+
+    level.forEach(l => {
+        logger[l]();
+        t.is(console.last(), `{"level":"${l}"}`);
     });
 });
