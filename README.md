@@ -17,12 +17,12 @@ const Logger = require('node-json-logger');
 const logger = new Logger();
 
 logger.info('info.');
-logger.info('info.', { data1: 'data#1', data2: 'data#2' });
+logger.info({ data1: 'data#1', data2: 'data#2' });
 ```
 Output:
 ```json
 {"timestamp":"2001-03-14T01:00:00.000Z","level":"info","message":"info."}
-{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","message":"info.","data1":"data#1","data2":"data#2"}}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","data1":"data#1","data2":"data#2"}}
 ```
 
 # <a href="#Levels"></a>Levels
@@ -41,8 +41,8 @@ Note:
 * xxx is one of the [Levels](#Levels)
 
 Arguments:
-* message: Specify a message as string.
-* details: Specify details as object. (optional)
+* message: Specify a message as string (Optional).
+* details: Specify details as object (optional).
 
 # Configuration
 ## level
