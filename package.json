@@ -19,16 +19,18 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc ava --verbose",
+    "report": "nyc report --reporter=html",
     "preversion": "npm test",
     "version": "git add --all",
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "moment": "^2.21.0"
+    "moment": "^2.22.0"
   },
   "devDependencies": {
     "ava": "^0.25.0",
     "coveralls": "^3.0.0",
-    "nyc": "^11.4.1"
+    "eslint": "^4.19.1",
+    "nyc": "^11.6.0"
   }
 }
