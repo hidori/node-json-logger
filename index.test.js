@@ -24,42 +24,50 @@ test('Logger output a log in the format designed.', t => {
     const console = new Console();
     const logger = new Logger({ level: 'trace' });
     const timestamp = "2001-03-14T01:00:00.000Z";
-    logger.getTimestamp = () => timestamp;
-    logger.writeLog = console.log;
+    logger.timestamp = () => timestamp;
+    logger.writeln = o => console.log(JSON.stringify(o));
 
     level.forEach(l => {
-        logger[l](`${l}.`);
-        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","message":"${l}."}`);
+        {
+            level.forEach(l => {
+                logger[l]();
+                t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}"}`);
+            });
+        }
 
-        logger[l]({ data1: `${l}#1`, data2: `${l}#2` });
-        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","data1":"${l}#1","data2":"${l}#2"}`);
-    });
-});
+        {
+            const message = `${l}.`;
+            const message1 = `${l}.1`;
+            const message2 = `${l}.2`;
+            logger[l](message, message1, message2);
 
-test('Logger can output a log contains source.', t => {
-    const level = [
-        'trace',
-        'debug',
-        'info',
-        'warn',
-        'error',
-        'fatal',
-    ];
-    const console = new Console();
-    const logger = new Logger({
-        level: 'trace',
-        source: 'source.',
-    });
-    const timestamp = "2001-03-14T01:00:00.000Z";
-    logger.getTimestamp = () => timestamp;
-    logger.writeLog = console.log;
+            const expected = `{"timestamp":"${timestamp}","level":"${l}","message":"${l}.","message1":"${l}.1","message2":"${l}.2"}`;
+            const actual = console.last();
+            t.is(expected, actual);
+        }
 
-    level.forEach(l => {
-        logger[l](`${l}.`);
-        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","source":"${logger.options.source}","message":"${l}."}`);
+        {
+            const data1 = { data1: `${l}#1` };
+            const data2 = { data2: `${l}#2` };
+            logger[l](data1, data2);
 
-        logger[l]({ data1: `${l}#1`, data2: `${l}#2` });
-        t.is(console.last(), `{"timestamp":"${timestamp}","level":"${l}","source":"${logger.options.source}","data1":"${l}#1","data2":"${l}#2"}`);
+            const expected = `{"timestamp":"${timestamp}","level":"${l}","data1":"${data1.data1}","data2":"${data2.data2}"}`;
+            const actual = console.last();
+            t.is(expected, actual);
+        }
+
+        {
+            const message = `${l}.`;
+            const message1 = `${l}.1`;
+            const message2 = `${l}.2`;
+            const data1 = { data1: `${l}#1` };
+            const data2 = { data2: `${l}#2` };
+            logger[l](message, data1, message1, data2, message2);
+
+            const expected = `{"timestamp":"${timestamp}","level":"${l}","message":"${l}.","data1":"${data1.data1}","message1":"${l}.1","data2":"${data2.data2}","message2":"${l}.2"}`;
+            const actual = console.last();
+            t.is(expected, actual);
+        }
     });
 });
 
@@ -73,15 +81,16 @@ test('Logger output a log on the log level as configured.', t => {
         { options: { level: 'warn' }, expected: [true, true, true, false, false, false] },
         { options: { level: 'error' }, expected: [true, true, true, true, false, false] },
         { options: { level: 'fatal' }, expected: [true, true, true, true, true, false] },
+        { options: { level: 'none' }, expected: [true, true, true, true, true, true] },
         { options: { level: 'unknown*level' }, expected: [true, false, false, false, false, false] },
     ];
     config.forEach(c => {
         const console = new Console();
         const logger = new Logger(c.options);
         const timestamp = "2001-03-14T01:00:00.000Z";
-        logger.getTimestamp = () => timestamp;
-        logger.writeLog = console.log;
-    
+        logger.timestamp = () => timestamp;
+        logger.writeln = o => console.log(JSON.stringify(o));
+
         logger.trace('trace.');
         t.true((console.last() === null) === c.expected[0]);
 
@@ -115,35 +124,15 @@ test('Timestamp can be disiable with config.', t => {
     const console = new Console();
     const logger = new Logger({ level: 'trace', timestamp: false });
     const timestamp = "2001-03-14T01:00:00.000Z";
-    logger.getTimestamp = () => timestamp;
-    logger.writeLog = console.log;
+    logger.timestamp = () => timestamp;
+    logger.writeln = o => console.log(JSON.stringify(o));
 
     level.forEach(l => {
-        logger[l](`${l}.`);
-        t.is(console.last(), `{"level":"${l}","message":"${l}."}`);
+        const message = `${l}.`;
+        logger[l](message);
 
-        logger[l]({ data1: `${l}#1`, data2: `${l}#2` });
-        t.is(console.last(), `{"level":"${l}","data1":"${l}#1","data2":"${l}#2"}`);
-    });
-});
-
-test('Message is omittable.', t => {
-    const level = [
-        'trace',
-        'debug',
-        'info',
-        'warn',
-        'error',
-        'fatal',
-    ];
-    const console = new Console();
-    const logger = new Logger({ level: 'trace', timestamp: false });
-    const timestamp = "2001-03-14T01:00:00.000Z";
-    logger.getTimestamp = () => timestamp;
-    logger.writeLog = console.log;
-
-    level.forEach(l => {
-        logger[l]();
-        t.is(console.last(), `{"level":"${l}"}`);
+        const expected = `{"level":"${l}","message":"${message}"}`;
+        const actual = console.last();
+        t.is(expected, actual);
     });
 });

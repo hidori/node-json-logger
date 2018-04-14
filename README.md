@@ -1,7 +1,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Maintainability](https://api.codeclimate.com/v1/badges/1dd1bfe212c8d70c9b8b/maintainability)](https://codeclimate.com/github/hidori/node-json-logger/maintainability)
-[![Build Status](https://travis-ci.org/rcmdnk/travis-test.svg?branch=master)](https://travis-ci.org/rcmdnk/travis-test)
-[![Coverage Status](https://coveralls.io/repos/github/hidori/node-json-logger/badge.svg?branch=feature%2Fadd-coveredge)](https://coveralls.io/github/hidori/node-json-logger?branch=feature%2Fadd-coveredge)
+[![Build Status](https://travis-ci.org/hidori/node-json-logger.svg)](https://travis-ci.org/hidori/node-json-logger)
+[![Coverage Status](https://coveralls.io/repos/github/hidori/node-json-logger/badge.svg)](https://coveralls.io/github/hidori/node-json-logger)
 
 node-json-logger
 ----
@@ -16,14 +16,34 @@ npm i node-json-logger
 const Logger = require('node-json-logger');
 const logger = new Logger();
 
-logger.info('info.');
-logger.info({ data1: 'data#1', data2: 'data#2' });
+logger.info();
+logger.info('message');
+logger.info('message','message','message');
+logger.info({ data: 'data' });
+logger.info({ data1: 'data' }, { data2: 'data' });
+logger.info('message', { data1: 'data' }, 'message', { data2: 'data' }, 'message');
 ```
-Output:
+
+Outputs:
 ```json
-{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","message":"info."}
-{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","data1":"data#1","data2":"data#2"}}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"info"}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","message":"message"}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","message":"message","message1":"message","message2":"message"}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","data":"data"}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","data1":"data","data2":"data"}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","message":"message","data1":"data","message1":"message","data2":"data","message2":"message"}
 ```
+
+# API
+```js
+logger.xxx(message?, ...)
+```
+
+Note:
+* xxx is one of the [Levels](#Levels)
+
+Arguments:
+* message: Specify a message as string or object.
 
 # <a href="#Levels"></a>Levels
 * trace
@@ -33,16 +53,6 @@ Output:
 * error
 * fatal
 
-# API
-```js
-logger.xxx(message)
-```
-Note:
-* xxx is one of the [Levels](#Levels)
-
-Arguments:
-* message: Specify a message as string or object.
-
 # Configuration
 ## level
 Specify output level. (optional, default is `debug`)
@@ -50,21 +60,23 @@ Specify output level. (optional, default is `debug`)
 const Logger = require('node-json-logger');
 const logger = new Logger({ level: 'error'});
 
-logger.trace('trace.');
-logger.debug('debug.');
-logger.info('info.');
-logger.warn('warn.');
-logger.error('error.');
-logger.fatal('fatal.');
+logger.trace('message');
+logger.debug('message');
+logger.info('message');
+logger.warn('message');
+logger.error('message');
+logger.fatal('message');
 ```
+
 Output:
 ```json
-{"timestamp":"2001-03-14T01:00:00.000Z","level":"error","message":"error."}
-{"timestamp":"2001-03-14T01:00:00.000Z","level":"fatal","message":"fatal."}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"error","message":"message"}
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"fatal","message":"message"}
 ```
+
 Level and output:
 
-| level                | trace | debug | info | warn | error | fatal |
+|                      | trace | debug | info | warn | error | fatal |
 |:---------------------|:------|:------|:-----|:-----|:------|:------|
 | `{ level: 'trace' }` | O     | O     | O    | O    | O     | O     |
 | `{ level: 'debug' }` | -     | O     | O    | O    | O     | O     |
@@ -72,6 +84,22 @@ Level and output:
 | `{ level: 'warn' }`  | -     | -     | -    | O    | O     | O     |
 | `{ level: 'error' }` | -     | -     | -    | -    | O     | O     |
 | `{ level: 'fatal' }` | -     | -     | -    | -    | -     | O     |
+| `{ level: 'none' }`  | -     | -     | -    | -    | -     | -     |
+
+## timestamp
+Specify enable or disable timestamp. (optional, default is true)
+
+```js
+const Logger = require('node-json-logger');
+const logger = new Logger({ timestamp: false });
+
+logger.info('message');
+```
+
+Output:
+```json
+{"level":"info","message":"message"}
+```
 
 # License
 MIT
