@@ -1,6 +1,6 @@
 {
   "name": "node-json-logger",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "write logs as JSON to STDOUT",
   "author": "hidori",
   "license": "MIT",
