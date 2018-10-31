@@ -96,10 +96,32 @@ const logger = new Logger({ timestamp: false });
 logger.info('message');
 ```
 
-Output:
+Output with disabled timestamp:
 ```json
 {"level":"info","message":"message"}
 ```
+
+## timezone
+Specify locale timezone. (optional, default is UTC)
+
+```js
+const Logger = require('node-json-logger');
+const logger = new Logger({timezone: 'America/Sao_Paulo'});
+
+logger.info('message');
+```
+
+Output with specific timezone:
+```json
+{"timestamp":"2018-10-25T15:32:43.318Z","level":"info","message":"message"}
+```
+
+Same output with default timezone (UTC):
+```json
+{"timestamp":"2018-10-25T18:32:43.318Z","level":"info","message":"message"}
+```
+
+[Click here](https://momentjs.com/timezone/) to see the list with all available timezones.
 
 # License
 MIT

@@ -136,3 +136,29 @@ test('Timestamp can be disiable with config.', t => {
         t.is(expected, actual);
     });
 });
+
+test('Timezone can be declared with config.', t => {
+    const level = [
+        'trace',
+        'debug',
+        'info',
+        'warn',
+        'error',
+        'fatal',
+    ];
+    const console = new Console();
+    const logger = new Logger({ level: 'trace', timezone: 'America/Sao_Paulo' });
+    const timestamp = "2001-03-14T01:00:00.000Z";
+    logger.timestamp = () => timestamp;
+    logger.writeln = o => console.log(JSON.stringify(o));
+
+    level.forEach(l => {
+        const message = `${l}.`;
+        logger[l](message);
+
+        const expected = `{"timestamp":"${timestamp}","level":"${l}","message":"${message}"}`;
+        const actual = console.last();
+        t.is(expected, actual);
+        t.is('America/Sao_Paulo', logger.options.timezone);
+    });
+});

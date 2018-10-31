@@ -1,6 +1,6 @@
 'use strict';
 
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const levels = ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'none' ];
 
@@ -8,9 +8,13 @@ module.exports = class Logger {
     constructor(options) {
         this.options = Object.create(options || {});
         this.options.timestamp = this.options.timestamp !== false;
+        this.options.timezone = this.options.timezone || false;
         this.options.level = (this.options.level || 'debug').toLowerCase();
 
-        this.timestamp = () => moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+        this.timestamp = () => this.options.timezone
+            ? moment.tz(this.options.timezone).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]')
+            : moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+
         this.writeln = $object => console.log(JSON.stringify($object));
 
         this.head = this.options.timestamp
