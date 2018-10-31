@@ -11,6 +11,7 @@ output logs as JSON to STDOUT
 ```sh
 npm i node-json-logger
 ```
+
 # Usage
 ```js
 const Logger = require('node-json-logger');
@@ -54,6 +55,7 @@ Arguments:
 * fatal
 
 # Configuration
+
 ## level
 Specify output level. (optional, default is `debug`)
 ```js
