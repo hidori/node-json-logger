@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const Logger = require('./logger');
+const Logger = require('./index');
 
 class Console {
     constructor() {
