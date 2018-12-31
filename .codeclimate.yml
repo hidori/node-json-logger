@@ -1,2 +1,13 @@
+version: "2"
+
+plugins:
+  eslint: true
+
 exclude_patterns:
+  - ".nyc_output/"
+  - ".vscode/"
+  - "coverage/"
+  - "infrastructures/"
+  - "test/"
+  - "**/node_modules/"
   - "**/*.test.js"
