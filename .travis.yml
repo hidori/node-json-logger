@@ -1,17 +1,5 @@
 language: node_js
 node_js:
-- 8.9.4
-- 8.10.0
-- 8.11.4
-- 8.12.0
-- 8.13.0
-- 8.14.0
-- 10.13.0
-- 10.14.1
-notifications:
-  slack:
-    secure: BkcKpa/FAbqzHuLEbPxNAQ4sSCeMA0e/gtMJqxL2j1m6OwpadYN+S3a1xv7Xh0wZkA2mnXC1dYEzsZb+dFvHYICVv3Jz6Pi7ALmVnRhFHCYDAS5+hgaxwCt6x2Yr8+/0MPZF8R7A7hex98lA05V9nSuhslcVPfdjmgbPpIMcIRx7IryU5mfZtx/uKd0UtaMgpK326CJ6y/RYbhbTeYkXKmXYaygdBdUU8B24Z2y/x3N+75ZdUY2JfPEgpt9i1UDhVv9sNoWog3L5wSlxHjiTIvazl17/7eEUwTnyIwXiuJgaMqQBrSTcKssJJnvDZZoLnWQVwkmRUQ2uXVq19TR7TCQWUTZ41ABURt8PfouJV43emDSJmQKzPP0eENig7uORkODeHQIxCtnumt8flyLiUJ5Uohm1wiq0xwCaPCVz5wCCP+4v/drUuZ+iWq68PCUBdJyERkJxZZuYXGUC/iGX+qqOJYIdNgQswUFZbpkb9OW38t2fMc10YzYJsfEZIZ/EF3BI5/XHRASXssWatHtWFyHYFEdL3pAFfMpc7fNFyqB90Dj9YdLHRDc257sAl9iukjQ4jup3Kav/A+ssTHbgjQA1RePw8VmqjexRGc9iGuiTLQb64FS4gMLQy+0fGmVgr0pX0V5izrBqkV9yhn3AAEKpgFfb1c9GE13aAfttCgQ=
+- "8.15"
+- "10.15"
 after_success: "./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls"
-env:
-  global:
-    secure: n0X7Sj6Hge2DDwNsjTx6jXN6BTP9CHnd2Cwi/2gRVSGG/zBH4vMqxAI0O2s7oWgG+fbzivLgxS5fmlUrd8rpMOEAqS22qmaFfRcUC/0hMLUIm2ZRCDEQMq9Dw5y75Yxt4bTbL5bm4fnCPRC7pwo3P+f9zZrB2yiRdnrA1zOUMGqaid91vOi6DZBfY41laqxYTGn8SiVa5McXgieOAnmbw42ylkKWL8o5k8/fzakzpNKAAvCfpVuX7p3DCxdSvHOm+GErd567gSl5JOnBDoq8MEFHdP3liQhq8zWmO/j6MfoBZQ+fqmIJmCJy1QHmdyoG3ZXgCrEM78ZTRqsvCsPccPv2P/fObBx3tupTiRAQl0dITOUDTypgwkhh7RwGDuujvalpJugGF0yJ2dTTLnzPZmitzaRMjsXtve2eNB2uXkVJUMad8S0kgOjwnyIflgHgO4MB04DlqCOJWyEw0QE+/2vcdf7QMukpsLb9yi0KrEV2UC7gH1yQzrv4DEErziC1Qi8KSpeHnA84Psh+yjjP0MrRu1lqunBzecUR0h0LEeVB8gBkDj9FRUnrLniCiRy9qN/0/EW2+uxdrTynqCoez6bBpEP7ph5jCDC8xyM2KjBtu4rV3PRhh6+8qq8fVGwTT/SNWs3m7UjU2rfH/VrOnctf2isxv+8fTuSYHrjrub8=
