@@ -5,7 +5,7 @@
 
 node-json-logger
 ----
-output logs to STDOUT in JSON
+Simply, output logs to STDOUT in JSON
 
 # Install
 ```sh
