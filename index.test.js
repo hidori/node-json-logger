@@ -162,3 +162,16 @@ test('Timezone can be declared with config.', t => {
         t.is('America/Sao_Paulo', logger.options.timezone);
     });
 });
+
+test('Logger name can be set', t => {
+    const console = new Console();
+    const logger = new Logger({ level: 'info', loggerName: 'server/index.js' });
+    const timestamp = "2001-03-14T01:00:00.000Z";
+    logger.timestamp = () => timestamp;
+    logger.writeln = o => console.log(JSON.stringify(o));
+
+    logger.info('Hello world!');
+    const expected = `{"timestamp":"${timestamp}","level":"info","loggerName":"server/index.js","message":"Hello world!"}`;
+    const actual = console.last();
+    t.is(expected, actual);
+});

@@ -88,6 +88,20 @@ Level and output:
 | `{ level: 'fatal' }` | -     | -     | -    | -    | -     | O     |
 | `{ level: 'none' }`  | -     | -     | -    | -    | -     | -     |
 
+## loggerName
+Specify the name of the logger. Useful when logging from different files.
+```js
+const Logger = require('node-json-logger');
+const logger = new Logger({ loggerName: 'server/index.js' });
+
+logger.info('message');
+```
+
+Output:
+```json
+{"timestamp":"2001-03-14T01:00:00.000Z","level":"info","loggerName":"server/index.js","message":"message"}
+```
+
 ## timestamp
 Specify enable or disable timestamp. (optional, default is true)
 
