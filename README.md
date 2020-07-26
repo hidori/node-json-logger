@@ -3,16 +3,18 @@
 [![Build Status](https://travis-ci.org/hidori/node-json-logger.svg)](https://travis-ci.org/hidori/node-json-logger)
 [![Coverage Status](https://coveralls.io/repos/github/hidori/node-json-logger/badge.svg)](https://coveralls.io/github/hidori/node-json-logger)
 
-node-json-logger
-----
+# node-json-logger
+
 Simply, output logs to STDOUT in JSON
 
-# Install
+## Install
+
 ```sh
 npm i node-json-logger
 ```
 
-# Usage
+## Usage
+
 ```js
 const Logger = require('node-json-logger');
 const logger = new Logger();
@@ -26,6 +28,7 @@ logger.info('message', { data1: 'data' }, 'message', { data2: 'data' }, 'message
 ```
 
 Outputs:
+
 ```json
 {"timestamp":"2001-03-14T01:00:00.000Z","level":"info"}
 {"timestamp":"2001-03-14T01:00:00.000Z","level":"info","message":"message"}
@@ -35,18 +38,22 @@ Outputs:
 {"timestamp":"2001-03-14T01:00:00.000Z","level":"info","message":"message","data1":"data","message1":"message","data2":"data","message2":"message"}
 ```
 
-# API
+## API
+
 ```js
 logger.xxx(message?, ...)
 ```
 
 Note:
+
 * xxx is one of the [Levels](#Levels)
 
 Arguments:
+
 * message: Specify a message as string or object.
 
-# <a href="#Levels"></a>Levels
+## <a href="#Levels"></a>Levels
+
 * trace
 * debug
 * info
@@ -54,10 +61,12 @@ Arguments:
 * error
 * fatal
 
-# Configuration
+## Configuration
 
-## level
+### level
+
 Specify output level. (optional, default is `debug`)
+
 ```js
 const Logger = require('node-json-logger');
 const logger = new Logger({ level: 'error'});
@@ -71,6 +80,7 @@ logger.fatal('message');
 ```
 
 Output:
+
 ```json
 {"timestamp":"2001-03-14T01:00:00.000Z","level":"error","message":"message"}
 {"timestamp":"2001-03-14T01:00:00.000Z","level":"fatal","message":"message"}
@@ -88,8 +98,10 @@ Level and output:
 | `{ level: 'fatal' }` | -     | -     | -    | -    | -     | O     |
 | `{ level: 'none' }`  | -     | -     | -    | -    | -     | -     |
 
-## loggerName
+### loggerName
+
 Specify the name of the logger. Useful when logging from different files.
+
 ```js
 const Logger = require('node-json-logger');
 const logger = new Logger({ loggerName: 'server/index.js' });
@@ -98,11 +110,13 @@ logger.info('message');
 ```
 
 Output:
+
 ```json
 {"timestamp":"2001-03-14T01:00:00.000Z","level":"info","loggerName":"server/index.js","message":"message"}
 ```
 
-## timestamp
+### timestamp
+
 Specify enable or disable timestamp. (optional, default is true)
 
 ```js
@@ -113,11 +127,13 @@ logger.info('message');
 ```
 
 Output with disabled timestamp:
+
 ```json
 {"level":"info","message":"message"}
 ```
 
-## timezone
+### timezone
+
 Specify locale timezone. (optional, default is UTC)
 
 ```js
@@ -128,18 +144,21 @@ logger.info('message');
 ```
 
 Output with specific timezone:
+
 ```json
 {"timestamp":"2018-10-25T15:32:43.318Z","level":"info","message":"message"}
 ```
 
 Same output with default timezone (UTC):
+
 ```json
 {"timestamp":"2018-10-25T18:32:43.318Z","level":"info","message":"message"}
 ```
 
 [Click here](https://momentjs.com/timezone/) to see the list with all available timezones.
 
-# License
+## License
+
 MIT
 
 Copyright &copy;2018 Hiroaki SHIBUKI a.k.a. [hidori](https://github.com/hidori)
