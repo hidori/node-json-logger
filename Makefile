@@ -9,4 +9,3 @@ version-patch:
 .PHONE: publish
 push:
 	npm publish
-
