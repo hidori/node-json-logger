@@ -7,5 +7,5 @@ version-patch:
 	npm version patch
 
 .PHONE: publish
-push:
+publish:
 	npm publish
