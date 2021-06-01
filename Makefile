@@ -2,10 +2,10 @@
 install:
 	npm install
 
-.PHONE: version-patch
+.PHONY: version-patch
 version-patch:
 	npm version patch
 
-.PHONE: publish
+.PHONY: publish
 publish:
 	npm publish
