@@ -1,3 +1,7 @@
+.PHONY: test
+test:
+	npm test
+
 .PHONY: intall
 install:
 	npm install
