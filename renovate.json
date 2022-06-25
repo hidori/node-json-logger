@@ -1,0 +1,34 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "labels": [
+    "renovate"
+  ],
+  "schedule": [
+    "after 10pm and before 5am every weekend"
+  ],
+  "dependencyDashboard": true,
+  "automerge": true,
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "groupName": "devDependencies",
+      "rangeStrategy": "update-lockfile"
+    },
+    {
+      "matchDepTypes": [
+        "dependencies"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "dependencies (non-major)",
+      "rangeStrategy": "pin"
+    }
+  ]
+}
