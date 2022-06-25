@@ -1,6 +1,6 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Maintainability](https://api.codeclimate.com/v1/badges/1dd1bfe212c8d70c9b8b/maintainability)](https://codeclimate.com/github/hidori/node-json-logger/maintainability)
-[![Build Status](https://travis-ci.org/hidori/node-json-logger.svg)](https://travis-ci.org/hidori/node-json-logger)
+[![Build Status: Node.js CI](https://github.com/hidori/node-json-logger/workflows/Node.js%20CI/badge.svg)](https://github.com/hidori/node-json-logger/actions?query=workflow%3A"Node.js+CI")
 [![Coverage Status](https://coveralls.io/repos/github/hidori/node-json-logger/badge.svg)](https://coveralls.io/github/hidori/node-json-logger)
 
 # node-json-logger
