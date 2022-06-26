@@ -10,7 +10,6 @@
     "after 10pm and before 5am every weekend"
   ],
   "dependencyDashboard": true,
-  "automerge": true,
   "packageRules": [
     {
       "matchDepTypes": [
@@ -27,8 +26,7 @@
         "minor",
         "patch"
       ],
-      "groupName": "dependencies (non-major)",
-      "rangeStrategy": "pin"
+      "groupName": "dependencies (non-major)"
     }
   ]
 }
