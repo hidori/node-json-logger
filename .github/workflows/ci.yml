@@ -3,6 +3,8 @@ name: ci
 on:
   push:
   workflow_dispatch:
+  schedule:
+    - cron:  '16 17 * * *'
 
 jobs:
   build:
