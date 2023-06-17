@@ -2,9 +2,9 @@
 test:
 	npm test
 
-.PHONY: intall
+.PHONY: ci
 install:
-	npm install
+	npm ci
 
 .PHONY: version-patch
 version-patch:
