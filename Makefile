@@ -2,7 +2,7 @@
 test:
 	npm test
 
-.PHONY: ci
+.PHONY: install
 install:
 	npm ci
 
