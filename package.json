@@ -16,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/hidori/node-json-logger/issues"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "main": "index.js",
   "scripts": {
     "test": "nyc ava --verbose",
