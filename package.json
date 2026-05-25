@@ -1,6 +1,6 @@
 {
   "name": "node-json-logger",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Simply, output logs to STDOUT in JSON",
   "author": "hidori",
   "license": "MIT",
@@ -16,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/hidori/node-json-logger/issues"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "main": "index.js",
   "scripts": {
     "test": "nyc ava --verbose",
@@ -29,8 +32,10 @@
   },
   "devDependencies": {
     "ava": "^6.0.0",
-    "coveralls": "^3.1.1",
     "eslint": "^9.0.0",
-    "nyc": "17.1.0"
+    "nyc": "^18.0.0"
+  },
+  "overrides": {
+    "uuid": "^11.1.0"
   }
 }
