@@ -1,5 +1,5 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status: Node.js CI](https://github.com/hidori/node-json-logger/workflows/Node.js%20CI/badge.svg)](https://github.com/hidori/node-json-logger/actions?query=workflow%3A"Node.js+CI")
+[![Build Status: CI](https://github.com/hidori/node-json-logger/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/hidori/node-json-logger/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Maintainability](https://api.codeclimate.com/v1/badges/1dd1bfe212c8d70c9b8b/maintainability)](https://codeclimate.com/github/hidori/node-json-logger/maintainability)
 
 # node-json-logger
